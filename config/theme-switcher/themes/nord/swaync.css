@@ -1,0 +1,247 @@
+/* Nord Colors */
+@define-color base   #2e3440;
+@define-color mantle #3b4252;
+@define-color crust  #2e3440;
+
+@define-color text     #d8dee9;
+@define-color subtext0 #d8dee9;
+@define-color subtext1 #e5e9f0;
+
+@define-color surface0 #3b4252;
+@define-color surface1 #434c5e;
+@define-color surface2 #4c566a;
+
+@define-color overlay0 #4c566a;
+@define-color overlay1 #d8dee9;
+
+@define-color blue     #5e81ac;
+@define-color lavender #b48ead;
+@define-color sapphire #88c0d0;
+@define-color sky      #88c0d0;
+@define-color teal     #8fbcbb;
+@define-color green    #a3be8c;
+@define-color yellow   #ebcb8b;
+@define-color peach    #d08770;
+@define-color maroon   #bf616a;
+@define-color red      #bf616a;
+@define-color mauve    #b48ead;
+@define-color pink     #b48ead;
+
+* {
+  font-family: "Ubuntu Nerd Font Propo";
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.control-center {
+  background: alpha(@base, 0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 2px solid alpha(@mauve, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  margin: 10px;
+  padding: 0;
+}
+
+.control-center .notification-row:focus,
+.control-center .notification-row:hover {
+  background: alpha(@surface1, 0.6);
+  border-radius: 12px;
+}
+
+.widget-title {
+  background: alpha(@mauve, 0.3);
+  backdrop-filter: blur(10px);
+  color: @text;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 12px;
+  margin: 12px;
+  padding: 12px;
+  border: 1px solid alpha(@mauve, 0.5);
+}
+
+.widget-title > button {
+  background: alpha(@pink, 0.8);
+  color: @crust;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 4px 12px alpha(@pink, 0.4);
+  transition: all 200ms ease;
+}
+
+.widget-title > button:hover {
+  background: @pink;
+  box-shadow: 0 6px 16px alpha(@pink, 0.6);
+  transform: translateY(-2px);
+}
+
+.widget-dnd {
+  background: alpha(@surface0, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  margin: 12px;
+  padding: 12px;
+  border: 1px solid alpha(@surface2, 0.5);
+}
+
+.widget-dnd > label {
+  color: @text;
+  font-weight: 600;
+}
+
+.widget-dnd > switch {
+  background: alpha(@surface2, 0.8);
+  border-radius: 20px;
+  border: none;
+  min-width: 50px;
+  min-height: 26px;
+}
+
+.widget-dnd > switch:checked {
+  background: @mauve;
+  box-shadow: 0 4px 12px alpha(@mauve, 0.4);
+}
+
+.widget-dnd > switch slider {
+  background: @text;
+  border-radius: 50%;
+  border: none;
+}
+
+.notification {
+  background: alpha(@surface0, 0.7);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  margin: 8px 12px;
+  padding: 0;
+  border: 1px solid alpha(@surface2, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: all 200ms ease;
+}
+
+.notification:hover {
+  background: alpha(@surface1, 0.8);
+  border-color: alpha(@mauve, 0.6);
+  transform: translateX(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.notification-content {
+  background: transparent;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.notification-default-action {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.summary {
+  color: @text;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.body {
+  color: @subtext0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.time {
+  color: @overlay1;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.notification-icon {
+  min-width: 48px;
+  min-height: 48px;
+  margin-right: 12px;
+  border-radius: 10px;
+}
+
+.app-icon {
+  color: @mauve;
+}
+
+.notification-action {
+  background: alpha(@mauve, 0.3);
+  color: @text;
+  border-radius: 8px;
+  margin: 6px;
+  padding: 8px 12px;
+  border: 1px solid alpha(@mauve, 0.4);
+  font-weight: 600;
+  transition: all 200ms ease;
+}
+
+.notification-action:hover {
+  background: alpha(@mauve, 0.5);
+  border-color: @mauve;
+  box-shadow: 0 4px 12px alpha(@mauve, 0.3);
+}
+
+.close-button {
+  background: alpha(@red, 0.8);
+  color: @crust;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px alpha(@red, 0.4);
+  transition: all 200ms ease;
+}
+
+.close-button:hover {
+  background: @red;
+  box-shadow: 0 6px 16px alpha(@red, 0.6);
+  transform: scale(1.1);
+}
+
+.notification.critical {
+  border: 2px solid @red;
+  background: alpha(@red, 0.15);
+}
+
+.notification.critical .summary {
+  color: @red;
+}
+
+scrollbar {
+  background: transparent;
+  width: 8px;
+}
+
+scrollbar slider {
+  background: alpha(@mauve, 0.5);
+  border-radius: 8px;
+  min-height: 40px;
+}
+
+scrollbar slider:hover {
+  background: alpha(@mauve, 0.7);
+}
+
+.blank-window {
+  background: alpha(@base, 0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 2px solid alpha(@mauve, 0.4);
+}
+
+.widget-label {
+  color: @subtext0;
+  font-size: 16px;
+  margin: 20px;
+}

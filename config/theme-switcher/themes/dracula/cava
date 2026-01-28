@@ -1,0 +1,31 @@
+[general]
+framerate = 60
+bars = 0
+bar_width = 2
+bar_spacing = 1
+
+[input]
+method = pulse
+source = auto
+
+[output]
+method = ncurses
+channels = stereo
+mono_option = average
+reverse = 0
+
+[color]
+gradient = 1
+gradient_count = 6
+gradient_color_1 = '#bd93f9'
+gradient_color_2 = '#ff79c6'
+gradient_color_3 = '#ff5555'
+gradient_color_4 = '#ffb86c'
+gradient_color_5 = '#f1fa8c'
+gradient_color_6 = '#50fa7b'
+
+[smoothing]
+monstercat = 1
+waves = 0
+gravity = 100
+ignore = 0

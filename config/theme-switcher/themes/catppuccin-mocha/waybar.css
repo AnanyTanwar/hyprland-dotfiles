@@ -1,0 +1,178 @@
+/* Catppuccin-Mocha */
+@define-color base   #1e1e2e;
+@define-color mantle #181825;
+@define-color crust  #11111b;
+
+@define-color text     #cdd6f4;
+@define-color subtext0 #a6adc8;
+@define-color subtext1 #bac2de;
+
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
+
+@define-color overlay0 #6c7086;
+@define-color overlay1 #7f849c;
+
+@define-color blue     #89b4fa;
+@define-color lavender #b4befe;
+@define-color sapphire #74c7ec;
+@define-color sky      #89dceb;
+@define-color teal     #94e2d5;
+@define-color green    #a6e3a1;
+@define-color yellow   #f9e2af;
+@define-color peach    #fab387;
+@define-color maroon   #eba0ac;
+@define-color red      #f38ba8;
+@define-color mauve    #cba6f7;
+@define-color pink     #f5c2e7;
+
+* {
+  border: none;
+  font-family: "Ubuntu Nerd Font Propo";
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+window#waybar {
+  background: transparent;
+  color: @text;
+}
+
+tooltip {
+  background: @base;
+  border: 1px solid @surface1;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+tooltip label {
+  color: @text;
+}
+
+#workspaces {
+  background: alpha(@base, 0.8);
+  border-radius: 12px;
+  padding: 3px 9px;
+  margin: 4px 7px;
+}
+
+#workspaces button {
+  padding: 3px 11px;
+  margin: 0 2px;
+  border: 1px solid @surface1;
+  background: alpha(@surface0, 0.8);
+  color: @text;
+  border-radius: 8px;
+  transition: all 200ms ease;
+}
+
+#workspaces button.active {
+  border-radius: 100px;
+  border: 1px solid @mauve;
+  color: @crust;
+  background: @mauve;
+  min-width: 47px;
+  font-size: 15px;
+}
+
+#clock {
+  background: @blue;
+  color: @crust;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 6px 18px;
+  margin: 4px 8px;
+  border-radius: 14px;
+}
+
+#custom-arch {
+  font-size: 18px;
+  padding: 6px 14px;
+  margin-left: 12px;
+  margin-right: 8px;
+  min-height: 32px;
+  color: @mauve;
+  background: transparent;
+  border-radius: 12px;
+  transition: all 200ms ease;
+}
+
+#custom-arch:hover {
+  background: alpha(@mauve, 0.2);
+  color: @mauve;
+}
+
+#cpu {
+  background: @green;
+  color: @crust;
+  padding: 3px 11px;
+  margin: 4px 3px;
+  border-radius: 8px;
+}
+
+#memory {
+  background: @yellow;
+  color: @crust;
+  padding: 3px 11px;
+  margin: 4px 3px;
+  border-radius: 8px;
+}
+
+#pulseaudio {
+  background: @mauve;
+  color: @crust;
+  padding: 3px 11px;
+  margin: 4px 3px;
+  border-radius: 8px;
+}
+
+#pulseaudio.muted {
+  background: @surface1;
+  color: @overlay1;
+}
+
+#network {
+  background: @sky;
+  color: @crust;
+  padding: 3px 11px;
+  margin: 4px 6px;
+  border-radius: 8px;
+}
+
+#network.disconnected {
+  background: @surface1;
+  color: @red;
+}
+
+#custom-notification {
+  background: @pink;
+  color: @crust;
+  margin-right: 6px;
+  padding: 3px 11px;
+  margin: 4px 12px 4px 3px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+#custom-notification.notification {
+  color: #f38ba8;
+  text-shadow: 0 0 6px rgba(243, 139, 168, 0.6);
+}
+
+#custom-notification.dnd-notification {
+  background: @maroon;
+  color: @crust;
+}
+
+#mode {
+  background: @red;
+  color: @crust;
+  padding: 4px 12px;
+  margin: 4px 6px;
+  border-radius: 8px;
+  font-weight: 700;
+}

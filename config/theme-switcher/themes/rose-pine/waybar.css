@@ -1,0 +1,178 @@
+/* Rose-Pine */
+@define-color base   #191724;
+@define-color mantle #1f1d2e;
+@define-color crust  #191724;
+
+@define-color text     #e0def4;
+@define-color subtext0 #908caa;
+@define-color subtext1 #908caa;
+
+@define-color surface0 #1f1d2e;
+@define-color surface1 #26233a;
+@define-color surface2 #403d52;
+
+@define-color overlay0 #6e6a86;
+@define-color overlay1 #908caa;
+
+@define-color blue     #31748f;
+@define-color lavender #c4a7e7;
+@define-color sapphire #9ccfd8;
+@define-color sky      #9ccfd8;
+@define-color teal     #9ccfd8;
+@define-color green    #9ccfd8;
+@define-color yellow   #f6c177;
+@define-color peach    #f6c177;
+@define-color maroon   #eb6f92;
+@define-color red      #eb6f92;
+@define-color mauve    #c4a7e7;
+@define-color pink     #ebbcba;
+
+* {
+  border: none;
+  font-family: "Ubuntu Nerd Font Propo";
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+window#waybar {
+  background: transparent;
+  color: @text;
+}
+
+tooltip {
+  background: @base;
+  border: 1px solid @surface1;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+tooltip label {
+  color: @text;
+}
+
+#workspaces {
+  background: alpha(@base, 0.8);
+  border-radius: 12px;
+  padding: 3px 9px;
+  margin: 4px 7px;
+}
+
+#workspaces button {
+  padding: 3px 11px;
+  margin: 0 2px;
+  border: 1px solid @surface1;
+  background: alpha(@surface0, 0.8);
+  color: @text;
+  border-radius: 8px;
+  transition: all 200ms ease;
+}
+
+#workspaces button.active {
+  border-radius: 100px;
+  border: 1px solid @mauve;
+  color: @crust;
+  background: @mauve;
+  min-width: 47px;
+  font-size: 15px;
+}
+
+#clock {
+  background: @blue;
+  color: @crust;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 6px 18px;
+  margin: 4px 8px;
+  border-radius: 14px;
+}
+
+#custom-arch {
+  font-size: 18px;
+  padding: 6px 14px;
+  margin-left: 12px;
+  margin-right: 8px;
+  min-height: 32px;
+  color: @mauve;
+  background: transparent;
+  border-radius: 12px;
+  transition: all 200ms ease;
+}
+
+#custom-arch:hover {
+  background: alpha(@mauve, 0.2);
+  color: @mauve;
+}
+
+#cpu {
+  background: @green;
+  color: @crust;
+  padding: 3px 11px;
+  margin: 4px 3px;
+  border-radius: 8px;
+}
+
+#memory {
+  background: @yellow;
+  color: @crust;
+  padding: 3px 11px;
+  margin: 4px 3px;
+  border-radius: 8px;
+}
+
+#pulseaudio {
+  background: @mauve;
+  color: @crust;
+  padding: 3px 11px;
+  margin: 4px 3px;
+  border-radius: 8px;
+}
+
+#pulseaudio.muted {
+  background: @surface1;
+  color: @overlay1;
+}
+
+#network {
+  background: @sky;
+  color: @crust;
+  padding: 3px 11px;
+  margin: 4px 6px;
+  border-radius: 8px;
+}
+
+#network.disconnected {
+  background: @surface1;
+  color: @red;
+}
+
+#custom-notification {
+  background: @pink;
+  color: @crust;
+  margin-right: 6px;
+  padding: 3px 11px;
+  margin: 4px 12px 4px 3px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+#custom-notification.notification {
+  color: #f38ba8;
+  text-shadow: 0 0 6px rgba(243, 139, 168, 0.6);
+}
+
+#custom-notification.dnd-notification {
+  background: @maroon;
+  color: @crust;
+}
+
+#mode {
+  background: @red;
+  color: @crust;
+  padding: 4px 12px;
+  margin: 4px 6px;
+  border-radius: 8px;
+  font-weight: 700;
+}
