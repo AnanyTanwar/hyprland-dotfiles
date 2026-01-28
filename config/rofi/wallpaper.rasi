@@ -1,0 +1,73 @@
+* {
+    background:     #1e1e2e;
+    background-alt: #313244;
+    foreground:     #cdd6f4;
+    accent:         #cba6f7;
+    pink:           #f5c2e7;
+    
+    font: "Ubuntu Nerd Font Propo 12";
+}
+
+window {
+    width: 900px;
+    height: 600px;
+    border-radius: 20px;
+    background-color: @background;
+    border: 3px solid;
+    border-color: @accent;
+    padding: 20px;
+}
+
+mainbox {
+    spacing: 15px;
+}
+
+inputbar {
+    background-color: @accent;
+    padding: 15px 20px;
+    border-radius: 12px;
+    spacing: 12px;
+}
+
+prompt {
+    enabled: true;
+    text-color: @background;
+    font: "Ubuntu Nerd Font Propo Bold 14";
+}
+
+entry {
+    text-color: @background;
+    placeholder: "Search...";
+    placeholder-color: @background;
+}
+
+listview {
+    columns: 3;
+    lines: 2;
+    spacing: 18px;
+    fixed-height: true;
+    cycle: true;
+}
+
+element {
+    background-color: @background-alt;
+    border-radius: 14px;
+    padding: 10px;
+    text-color: @foreground;
+}
+
+element selected {
+    background-color: @accent;
+    text-color: @background;
+}
+
+element-icon {
+    size: 180px;
+    border-radius: 10px;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    padding: 8px 0px;
+    font: "Ubuntu Nerd Font Propo 11";
+}

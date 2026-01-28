@@ -1,0 +1,72 @@
+/**
+ * Power Menu Theme (Catppuccin)
+ */
+
+configuration {
+    show-icons: false;
+}
+
+@import "~/.config/rofi/colors/catppuccin.rasi"
+@import "~/.config/rofi/fonts.rasi"
+
+/***** Window *****/
+window {
+    location: center;
+    anchor: center;
+    width: 520px;
+    border-radius: 14px;
+    background-color: @background;
+}
+
+/***** Main box *****/
+mainbox {
+    padding: 28px;
+    spacing: 16px;
+    background-color: transparent;
+}
+
+/***** Input bar *****/
+inputbar {
+    children: [ "textbox-prompt-colon", "prompt" ];
+}
+
+textbox-prompt-colon {
+    str: "";
+    padding: 10px 14px;
+    border-radius: 12px;
+    background-color: @urgent;
+    text-color: @background;
+}
+
+prompt {
+    padding: 10px;
+    border-radius: 12px;
+    background-color: @active;
+    text-color: @background;
+}
+
+/***** List *****/
+listview {
+    columns: 6;
+    lines: 1;
+    spacing: 14px;
+    layout: vertical;
+}
+
+/***** Elements *****/
+element {
+    padding: 26px 10px;
+    border-radius: 12px;
+    background-color: @background-alt;
+    text-color: @foreground;
+}
+
+element selected {
+    background-color: @selected;
+    text-color: @background;
+}
+
+element-text {
+    font: "feather 28";
+    horizontal-align: 0.5;
+}
