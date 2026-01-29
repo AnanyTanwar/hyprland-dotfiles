@@ -1,10 +1,9 @@
 # 🌸 Hyprland Dotfiles
 
 <p align="center">
-  <img src="https://img.shields.io/badge/OS-Arch_Linux-1793D1?logo=arch-linux&logoColor=white&style=flat-square"/>
-  <img src="https://img.shields.io/badge/WM-Hyprland-5e81ac?logo=wayland&logoColor=white&style=flat-square"/>
-<img src="https://img.shields.io/github/license/AnanyTanwar/hyprland-dotfiles?branch=main&color=brightgreen&style=flat-square"/>
-  <img src="https://img.shields.io/github/stars/AnanyTanwar/hyprland-dotfiles?style=flat-square"/>
+  <img src="https://img.shields.io/badge/OS-Arch_Linux-1793D1?logo=arch-linux&logoColor=white&style=flat-square&labelColor=1e1e2e&color=1793D1&logoWidth=20&fontSize=12&borderRadius=0"/>
+  <img src="https://img.shields.io/badge/WM-Hyprland-5e81ac?logo=wayland&logoColor=white&style=flat-square&labelColor=1e1e2e&color=5e81ac&logoWidth=20&fontSize=12&borderRadius=0"/>
+  <img src="https://img.shields.io/github/license/AnanyTanwar/hyprland-dotfiles?branch=main&style=flat-square&labelColor=1e1e2e&color=28a745&logoWidth=20&fontSize=12&borderRadius=0"/>
 </p>
 
 A beautiful and feature-rich Hyprland rice for Arch Linux with custom theme switching capabilities.
@@ -267,6 +266,7 @@ Make sure you have Nerd Fonts installed:
 ```bash
 yay -S ttf-jetbrains-mono-nerd
 ```
+git push origin main
 
 ## 🎯 Planned Features
 
