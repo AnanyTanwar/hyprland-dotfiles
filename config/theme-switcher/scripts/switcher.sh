@@ -244,6 +244,22 @@ apply_cava() {
     cp "$theme_path/cava" "$CONFIG_DIR/cava/config"
 }
 
+apply_starship() {
+    local theme_path=$1
+    [[ -f "$theme_path/starship-palette.toml" ]] || return 1
+    
+    mkdir -p "$CONFIG_DIR/starship"
+    cp "$theme_path/starship-palette.toml" "$CONFIG_DIR/starship/palette.toml"
+}
+
+apply_hyprland_colors() {
+    local theme_path=$1
+    [[ -f "$theme_path/hyprland-colors.conf" ]] || return 1
+    
+    mkdir -p "$CONFIG_DIR/hypr"
+    cp "$theme_path/hyprland-colors.conf" "$CONFIG_DIR/hypr/colors.conf"
+}
+
 apply_hyprland() {
     if command_exists hyprctl; then
         hyprctl reload &>/dev/null || true
@@ -276,6 +292,8 @@ apply_theme() {
     apply_kitty "$theme_path" || { error "Failed to apply kitty theme"; ((failed++)); }
     apply_btop "$theme_path" || { error "Failed to apply btop theme"; ((failed++)); }
     apply_cava "$theme_path" || { error "Failed to apply cava theme"; ((failed++)); }
+    apply_starship "$theme_path" || { error "Failed to apply starship theme"; ((failed++)); }
+    apply_hyprland_colors "$theme_path" || { error "Failed to apply hyprland colors"; ((failed++)); }
     
     # Reload window manager
     apply_hyprland
