@@ -297,6 +297,10 @@ cat ~/.config/theme-switcher/.theme-switcher.log
 ![Rosé Pine Main](screenshots/rose-pine/rose_pine_main.png)
 ![Rosé Pine Dev](screenshots/rose-pine/rose_pine_dev.png)
 
+### Nord
+![Nord Main](screenshots/nord/nord_main.png)
+![Nord Dev](screenshots/nord/nord_dev.png)
+
 ---
 
 ## Roadmap
