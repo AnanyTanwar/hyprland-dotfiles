@@ -289,6 +289,10 @@ cat ~/.config/theme-switcher/.theme-switcher.log
 ![Dracula Main](screenshots/dracula/dracula_main.png)
 ![Dracula Dev](screenshots/dracula/dracula_dev.png)
 
+### Rosé Pine
+![Rosé Pine Main](screenshots/rose-pine/rose_pine_main.png)
+![Rosé Pine Dev](screenshots/rose-pine/rose_pine_dev.png)
+
 ---
 
 ## Roadmap
