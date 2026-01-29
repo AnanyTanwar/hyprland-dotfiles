@@ -1,87 +1,301 @@
 #!/usr/bin/env python3
 
+"""
+Theme Generator for Hyprland Dotfiles
+Generates theme files for multiple applications from JSON color palettes
+"""
+
 import json
+import sys
 from pathlib import Path
+from typing import Dict, List, Optional
+from dataclasses import dataclass
+import argparse
+
+# ============================================================================
+# CONFIGURATION
+# ============================================================================
 
 BASE_DIR = Path.home() / ".config" / "theme-switcher"
 PALETTES_DIR = BASE_DIR / "palettes"
 THEMES_DIR = BASE_DIR / "themes"
 
-def load_palette(theme_name):
-    palette_file = PALETTES_DIR / f"{theme_name}.json"
-    with open(palette_file, 'r') as f:
-        return json.load(f)
+# Required color keys that all palettes must have (for validation)
+REQUIRED_COLORS = {
+    'base', 'text', 'red', 'green', 'yellow', 'blue', 'pink'
+}
 
-def get_mapped_colors(theme_name, colors):
+# ============================================================================
+# DATA CLASSES
+# ============================================================================
+
+@dataclass
+class ThemeConfig:
+    """Configuration for theme generation"""
+    name: str
+    palette_file: Path
+    output_dir: Path
+    colors: Dict[str, str]
+
+
+# ============================================================================
+# COLOR MAPPING FUNCTIONS
+# ============================================================================
+
+def get_mapped_colors(theme_name: str, colors: Dict[str, str]) -> Dict[str, str]:
+    """
+    Map theme-specific color names to a unified color scheme.
+    This allows different themes to use their own naming conventions.
+    """
+    
+    # Catppuccin themes (Mocha, Latte, etc.)
     if theme_name.startswith("catppuccin"):
         return {
-            'base': colors['base'], 'mantle': colors['mantle'], 'crust': colors['crust'],
-            'text': colors['text'], 'subtext0': colors['subtext0'], 'subtext1': colors['subtext1'],
-            'surface0': colors['surface0'], 'surface1': colors['surface1'], 'surface2': colors['surface2'],
-            'overlay0': colors['overlay0'], 'overlay1': colors['overlay1'],
-            'blue': colors['blue'], 'lavender': colors['lavender'], 'sapphire': colors['sapphire'],
-            'sky': colors['sky'], 'teal': colors['teal'], 'green': colors['green'],
-            'yellow': colors['yellow'], 'peach': colors['peach'], 'maroon': colors['maroon'],
-            'red': colors['red'], 'mauve': colors['mauve'], 'pink': colors['pink']
+            'base': colors.get('base', '#1e1e2e'),
+            'mantle': colors.get('mantle', '#181825'),
+            'crust': colors.get('crust', '#11111b'),
+            'text': colors.get('text', '#cdd6f4'),
+            'subtext0': colors.get('subtext0', '#a6adc8'),
+            'subtext1': colors.get('subtext1', '#bac2de'),
+            'surface0': colors.get('surface0', '#313244'),
+            'surface1': colors.get('surface1', '#45475a'),
+            'surface2': colors.get('surface2', '#585b70'),
+            'overlay0': colors.get('overlay0', '#6c7086'),
+            'overlay1': colors.get('overlay1', '#7f849c'),
+            'blue': colors.get('blue', '#89b4fa'),
+            'lavender': colors.get('lavender', '#b4befe'),
+            'sapphire': colors.get('sapphire', '#74c7ec'),
+            'sky': colors.get('sky', '#89dceb'),
+            'teal': colors.get('teal', '#94e2d5'),
+            'green': colors.get('green', '#a6e3a1'),
+            'yellow': colors.get('yellow', '#f9e2af'),
+            'peach': colors.get('peach', '#fab387'),
+            'maroon': colors.get('maroon', '#eba0ac'),
+            'red': colors.get('red', '#f38ba8'),
+            'mauve': colors.get('mauve', '#cba6f7'),
+            'pink': colors.get('pink', '#f5c2e7')
         }
+    
+    # Rose Pine theme
     elif theme_name == "rose-pine":
         return {
-            'base': colors['base'], 'mantle': colors['surface'], 'crust': colors['base'],
-            'text': colors['text'], 'subtext0': colors['subtle'], 'subtext1': colors['subtle'],
-            'surface0': colors['surface'], 'surface1': colors['overlay'], 'surface2': colors['highlight_med'],
-            'overlay0': colors['muted'], 'overlay1': colors['subtle'],
-            'blue': colors['pine'], 'lavender': colors['iris'], 'sapphire': colors['foam'],
-            'sky': colors['foam'], 'teal': colors['foam'], 'green': colors['foam'],
-            'yellow': colors['gold'], 'peach': colors['gold'], 'maroon': colors['love'],
-            'red': colors['love'], 'mauve': colors['iris'], 'pink': colors['rose']
+            'base': colors.get('base', '#191724'),
+            'mantle': colors.get('surface', '#1f1d2e'),
+            'crust': colors.get('base', '#191724'),
+            'text': colors.get('text', '#e0def4'),
+            'subtext0': colors.get('subtle', '#908caa'),
+            'subtext1': colors.get('subtle', '#908caa'),
+            'surface0': colors.get('surface', '#1f1d2e'),
+            'surface1': colors.get('overlay', '#26233a'),
+            'surface2': colors.get('highlight_med', '#403d52'),
+            'overlay0': colors.get('muted', '#6e6a86'),
+            'overlay1': colors.get('subtle', '#908caa'),
+            'blue': colors.get('pine', '#31748f'),
+            'lavender': colors.get('iris', '#c4a7e7'),
+            'sapphire': colors.get('foam', '#9ccfd8'),
+            'sky': colors.get('foam', '#9ccfd8'),
+            'teal': colors.get('foam', '#9ccfd8'),
+            'green': colors.get('foam', '#9ccfd8'),
+            'yellow': colors.get('gold', '#f6c177'),
+            'peach': colors.get('gold', '#f6c177'),
+            'maroon': colors.get('love', '#eb6f92'),
+            'red': colors.get('love', '#eb6f92'),
+            'mauve': colors.get('iris', '#c4a7e7'),
+            'pink': colors.get('rose', '#ebbcba')
         }
+    
+    # Nord theme
     elif theme_name == "nord":
         return {
-            'base': colors['nord0'], 'mantle': colors['nord1'], 'crust': colors['nord0'],
-            'text': colors['nord4'], 'subtext0': colors['nord4'], 'subtext1': colors['nord5'],
-            'surface0': colors['nord1'], 'surface1': colors['nord2'], 'surface2': colors['nord3'],
-            'overlay0': colors['nord3'], 'overlay1': colors['nord4'],
-            'blue': colors['nord10'], 'lavender': colors['nord15'], 'sapphire': colors['nord8'],
-            'sky': colors['nord8'], 'teal': colors['nord7'], 'green': colors['nord14'],
-            'yellow': colors['nord13'], 'peach': colors['nord12'], 'maroon': colors['nord11'],
-            'red': colors['nord11'], 'mauve': colors['nord15'], 'pink': colors['nord15']
+            'base': colors.get('nord0', '#2e3440'),
+            'mantle': colors.get('nord1', '#3b4252'),
+            'crust': colors.get('nord0', '#2e3440'),
+            'text': colors.get('nord4', '#d8dee9'),
+            'subtext0': colors.get('nord4', '#d8dee9'),
+            'subtext1': colors.get('nord5', '#e5e9f0'),
+            'surface0': colors.get('nord1', '#3b4252'),
+            'surface1': colors.get('nord2', '#434c5e'),
+            'surface2': colors.get('nord3', '#4c566a'),
+            'overlay0': colors.get('nord3', '#4c566a'),
+            'overlay1': colors.get('nord4', '#d8dee9'),
+            'blue': colors.get('nord10', '#5e81ac'),
+            'lavender': colors.get('nord15', '#b48ead'),
+            'sapphire': colors.get('nord8', '#88c0d0'),
+            'sky': colors.get('nord8', '#88c0d0'),
+            'teal': colors.get('nord7', '#8fbcbb'),
+            'green': colors.get('nord14', '#a3be8c'),
+            'yellow': colors.get('nord13', '#ebcb8b'),
+            'peach': colors.get('nord12', '#d08770'),
+            'maroon': colors.get('nord11', '#bf616a'),
+            'red': colors.get('nord11', '#bf616a'),
+            'mauve': colors.get('nord15', '#b48ead'),
+            'pink': colors.get('nord15', '#b48ead')
         }
+    
+    # Gruvbox theme
     elif theme_name == "gruvbox":
         return {
-            'base': colors['bg'], 'mantle': colors['bg0'], 'crust': colors['bg'],
-            'text': colors['fg'], 'subtext0': colors['fg2'], 'subtext1': colors['fg1'],
-            'surface0': colors['bg1'], 'surface1': colors['bg2'], 'surface2': colors['bg3'],
-            'overlay0': colors['bg4'], 'overlay1': colors['gray'],
-            'blue': colors['blue'], 'lavender': colors['purple'], 'sapphire': colors['aqua'],
-            'sky': colors['aqua'], 'teal': colors['aqua'], 'green': colors['green'],
-            'yellow': colors['yellow'], 'peach': colors['orange'], 'maroon': colors['red'],
-            'red': colors['red'], 'mauve': colors['purple'], 'pink': colors['purple']
+            'base': colors.get('bg', '#282828'),
+            'mantle': colors.get('bg0', '#282828'),
+            'crust': colors.get('bg', '#282828'),
+            'text': colors.get('fg', '#ebdbb2'),
+            'subtext0': colors.get('fg2', '#d5c4a1'),
+            'subtext1': colors.get('fg1', '#ebdbb2'),
+            'surface0': colors.get('bg1', '#3c3836'),
+            'surface1': colors.get('bg2', '#504945'),
+            'surface2': colors.get('bg3', '#665c54'),
+            'overlay0': colors.get('bg4', '#7c6f64'),
+            'overlay1': colors.get('gray', '#928374'),
+            'blue': colors.get('blue', '#83a598'),
+            'lavender': colors.get('purple', '#d3869b'),
+            'sapphire': colors.get('aqua', '#8ec07c'),
+            'sky': colors.get('aqua', '#8ec07c'),
+            'teal': colors.get('aqua', '#8ec07c'),
+            'green': colors.get('green', '#b8bb26'),
+            'yellow': colors.get('yellow', '#fabd2f'),
+            'peach': colors.get('orange', '#fe8019'),
+            'maroon': colors.get('red', '#fb4934'),
+            'red': colors.get('red', '#fb4934'),
+            'mauve': colors.get('purple', '#d3869b'),
+            'pink': colors.get('purple', '#d3869b')
         }
+    
+    # Tokyo Night theme
     elif theme_name == "tokyo-night":
         return {
-            'base': colors['bg'], 'mantle': colors['bg_dark'], 'crust': colors['bg_dark'],
-            'text': colors['fg'], 'subtext0': colors['fg_dark'], 'subtext1': colors['fg'],
-            'surface0': colors['bg_highlight'], 'surface1': colors['terminal_black'], 'surface2': colors['dark3'],
-            'overlay0': colors['comment'], 'overlay1': colors['dark5'],
-            'blue': colors['blue'], 'lavender': colors['purple'], 'sapphire': colors['cyan'],
-            'sky': colors['cyan'], 'teal': colors['teal'], 'green': colors['green'],
-            'yellow': colors['yellow'], 'peach': colors['orange'], 'maroon': colors['red1'],
-            'red': colors['red'], 'mauve': colors['purple'], 'pink': colors['magenta']
+            'base': colors.get('bg', '#1a1b26'),
+            'mantle': colors.get('bg_dark', '#16161e'),
+            'crust': colors.get('bg_dark', '#16161e'),
+            'text': colors.get('fg', '#c0caf5'),
+            'subtext0': colors.get('fg_dark', '#a9b1d6'),
+            'subtext1': colors.get('fg', '#c0caf5'),
+            'surface0': colors.get('bg_highlight', '#292e42'),
+            'surface1': colors.get('terminal_black', '#414868'),
+            'surface2': colors.get('dark3', '#545c7e'),
+            'overlay0': colors.get('comment', '#565f89'),
+            'overlay1': colors.get('dark5', '#737aa2'),
+            'blue': colors.get('blue', '#7aa2f7'),
+            'lavender': colors.get('purple', '#bb9af7'),
+            'sapphire': colors.get('cyan', '#7dcfff'),
+            'sky': colors.get('cyan', '#7dcfff'),
+            'teal': colors.get('teal', '#1abc9c'),
+            'green': colors.get('green', '#9ece6a'),
+            'yellow': colors.get('yellow', '#e0af68'),
+            'peach': colors.get('orange', '#ff9e64'),
+            'maroon': colors.get('red1', '#db4b4b'),
+            'red': colors.get('red', '#f7768e'),
+            'mauve': colors.get('purple', '#bb9af7'),
+            'pink': colors.get('magenta', '#ff007c')
         }
+    
+    # Dracula theme
     elif theme_name == "dracula":
         return {
-            'base': colors['bg'], 'mantle': colors['bg'], 'crust': colors['bg'],
-            'text': colors['fg'], 'subtext0': colors['comment'], 'subtext1': colors['fg'],
-            'surface0': colors['current_line'], 'surface1': colors['selection'], 'surface2': colors['selection'],
-            'overlay0': colors['comment'], 'overlay1': colors['comment'],
-            'blue': colors['cyan'], 'lavender': colors['purple'], 'sapphire': colors['cyan'],
-            'sky': colors['cyan'], 'teal': colors['cyan'], 'green': colors['green'],
-            'yellow': colors['yellow'], 'peach': colors['orange'], 'maroon': colors['red'],
-            'red': colors['red'], 'mauve': colors['purple'], 'pink': colors['pink']
+            'base': colors.get('bg', '#282a36'),
+            'mantle': colors.get('bg', '#282a36'),
+            'crust': colors.get('bg', '#282a36'),
+            'text': colors.get('fg', '#f8f8f2'),
+            'subtext0': colors.get('comment', '#6272a4'),
+            'subtext1': colors.get('fg', '#f8f8f2'),
+            'surface0': colors.get('current_line', '#44475a'),
+            'surface1': colors.get('selection', '#44475a'),
+            'surface2': colors.get('selection', '#44475a'),
+            'overlay0': colors.get('comment', '#6272a4'),
+            'overlay1': colors.get('comment', '#6272a4'),
+            'blue': colors.get('cyan', '#8be9fd'),
+            'lavender': colors.get('purple', '#bd93f9'),
+            'sapphire': colors.get('cyan', '#8be9fd'),
+            'sky': colors.get('cyan', '#8be9fd'),
+            'teal': colors.get('cyan', '#8be9fd'),
+            'green': colors.get('green', '#50fa7b'),
+            'yellow': colors.get('yellow', '#f1fa8c'),
+            'peach': colors.get('orange', '#ffb86c'),
+            'maroon': colors.get('red', '#ff5555'),
+            'red': colors.get('red', '#ff5555'),
+            'mauve': colors.get('purple', '#bd93f9'),
+            'pink': colors.get('pink', '#ff79c6')
         }
-    return {}
+    
+    # Default/unknown theme - try to use colors as-is
+    else:
+        print(f"⚠️  Warning: Unknown theme '{theme_name}', using direct color mapping")
+        return colors
 
-def generate_waybar(theme_name, mapped):
+
+# ============================================================================
+# VALIDATION FUNCTIONS
+# ============================================================================
+
+def validate_palette(palette: Dict[str, str], theme_name: str) -> bool:
+    """Validate that a palette has all required colors"""
+    missing_colors = REQUIRED_COLORS - set(palette.keys())
+    
+    if missing_colors:
+        print(f"❌ Error: Palette '{theme_name}' is missing required colors: {missing_colors}")
+        return False
+    
+    # Validate color format (should be hex colors)
+    for color_name, color_value in palette.items():
+        if not isinstance(color_value, str):
+            print(f"❌ Error: Color '{color_name}' in '{theme_name}' is not a string")
+            return False
+        
+        if not color_value.startswith('#'):
+            print(f"⚠️  Warning: Color '{color_name}' in '{theme_name}' doesn't start with '#': {color_value}")
+    
+    return True
+
+
+# ============================================================================
+# PALETTE LOADING
+# ============================================================================
+
+def load_palette(theme_name: str) -> Optional[Dict[str, str]]:
+    """Load a color palette from JSON file"""
+    palette_file = PALETTES_DIR / f"{theme_name}.json"
+    
+    if not palette_file.exists():
+        print(f"❌ Error: Palette file not found: {palette_file}")
+        return None
+    
+    try:
+        with open(palette_file, 'r') as f:
+            colors = json.load(f)
+        
+        # Validate palette
+        if not validate_palette(colors, theme_name):
+            return None
+        
+        return colors
+    
+    except json.JSONDecodeError as e:
+        print(f"❌ Error: Invalid JSON in {palette_file}: {e}")
+        return None
+    except Exception as e:
+        print(f"❌ Error loading palette {theme_name}: {e}")
+        return None
+
+
+def discover_palettes() -> List[str]:
+    """Auto-discover available palette files"""
+    if not PALETTES_DIR.exists():
+        print(f"❌ Error: Palettes directory not found: {PALETTES_DIR}")
+        return []
+    
+    palettes = []
+    for palette_file in PALETTES_DIR.glob("*.json"):
+        theme_name = palette_file.stem
+        palettes.append(theme_name)
+    
+    return sorted(palettes)
+
+
+# ============================================================================
+# THEME GENERATORS
+# ============================================================================
+
+def generate_waybar(theme_name: str, mapped: Dict[str, str]) -> str:
+    """Generate Waybar CSS theme"""
     return f"""/* {theme_name.title()} */
 @define-color base   {mapped['base']};
 @define-color mantle {mapped['mantle']};
@@ -262,7 +476,9 @@ tooltip label {{
 }}
 """
 
-def generate_swaync(theme_name, mapped):
+
+def generate_swaync(theme_name: str, mapped: Dict[str, str]) -> str:
+    """Generate SwayNC CSS theme"""
     return f"""/* {theme_name.title()} Colors */
 @define-color base   {mapped['base']};
 @define-color mantle {mapped['mantle']};
@@ -512,7 +728,9 @@ scrollbar slider:hover {{
 }}
 """
 
-def generate_rofi(theme_name, colors):
+
+def generate_rofi(theme_name: str, colors: Dict[str, str]) -> str:
+    """Generate Rofi theme"""
     mapped = get_mapped_colors(theme_name, colors)
     
     return f"""configuration {{
@@ -644,7 +862,9 @@ element selected.normal {{
 }}
 """
 
-def generate_btop(theme_name, colors):
+
+def generate_btop(theme_name: str, colors: Dict[str, str]) -> str:
+    """Generate Btop theme"""
     mapped = get_mapped_colors(theme_name, colors)
     
     return f"""theme[main_bg]="{mapped['crust']}"
@@ -691,7 +911,9 @@ theme[process_mid]="{mapped['lavender']}"
 theme[process_end]="{mapped['mauve']}"
 """
 
-def generate_cava(theme_name, colors):
+
+def generate_cava(theme_name: str, colors: Dict[str, str]) -> str:
+    """Generate Cava config"""
     mapped = get_mapped_colors(theme_name, colors)
     grad = [mapped['mauve'], mapped['pink'], mapped['red'], mapped['peach'], mapped['yellow'], mapped['green']]
     
@@ -727,7 +949,10 @@ waves = 0
 gravity = 100
 ignore = 0
 """
-def generate_alacritty(theme_name, colors):
+
+
+def generate_alacritty(theme_name: str, colors: Dict[str, str]) -> str:
+    """Generate Alacritty theme"""
     mapped = get_mapped_colors(theme_name, colors)
     
     return f"""[colors.primary]
@@ -763,7 +988,9 @@ cyan = '{mapped['teal']}'
 white = '{mapped['subtext0']}'
 """
 
-def generate_kitty(theme_name, colors):
+
+def generate_kitty(theme_name: str, colors: Dict[str, str]) -> str:
+    """Generate Kitty theme"""
     mapped = get_mapped_colors(theme_name, colors)
     
     return f"""foreground {mapped['text']}
@@ -799,7 +1026,9 @@ color7  {mapped['subtext1']}
 color15 {mapped['subtext0']}
 """
 
-def generate_theme_menu(theme_name, colors):
+
+def generate_theme_menu(theme_name: str, colors: Dict[str, str]) -> str:
+    """Generate theme switcher menu for Rofi"""
     mapped = get_mapped_colors(theme_name, colors)
     
     return f"""configuration {{
@@ -939,42 +1168,156 @@ element-text {{
 }}
 """
 
+
+# ============================================================================
+# THEME GENERATION
+# ============================================================================
+
+def generate_theme(theme_name: str, verbose: bool = False) -> bool:
+    """Generate all theme files for a given theme"""
+    if verbose:
+        print(f"📦 Generating theme: {theme_name}")
+    
+    # Load palette
+    colors = load_palette(theme_name)
+    if not colors:
+        return False
+    
+    # Get mapped colors
+    mapped = get_mapped_colors(theme_name, colors)
+    
+    # Create theme directory
+    theme_dir = THEMES_DIR / theme_name
+    theme_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Generate each theme file
+    theme_files = {
+        "waybar.css": generate_waybar(theme_name, mapped),
+        "swaync.css": generate_swaync(theme_name, mapped),
+        "rofi.rasi": generate_rofi(theme_name, colors),
+        "btop.theme": generate_btop(theme_name, colors),
+        "cava": generate_cava(theme_name, colors),
+        "alacritty-theme.toml": generate_alacritty(theme_name, colors),
+        "kitty-theme.conf": generate_kitty(theme_name, colors),
+        "theme-switcher-menu.rasi": generate_theme_menu(theme_name, colors),
+    }
+    
+    # Write files
+    for filename, content in theme_files.items():
+        file_path = theme_dir / filename
+        try:
+            with open(file_path, 'w') as f:
+                f.write(content)
+            if verbose:
+                print(f"  ✓ {filename}")
+        except Exception as e:
+            print(f"  ❌ Error writing {filename}: {e}")
+            return False
+    
+    if verbose:
+        print(f"✅ {theme_name} generated successfully\n")
+    
+    return True
+
+
+# ============================================================================
+# MAIN FUNCTION
+# ============================================================================
+
 def main():
-    themes = ["catppuccin-mocha", "catppuccin-latte", "rose-pine", "nord", "gruvbox", "tokyo-night", "dracula"]
+    """Main function"""
+    parser = argparse.ArgumentParser(
+        description="Generate theme files for Hyprland dotfiles",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s                      # Generate all themes
+  %(prog)s -t tokyo-night       # Generate only Tokyo Night
+  %(prog)s -l                   # List available palettes
+  %(prog)s -v                   # Verbose output
+        """
+    )
+    
+    parser.add_argument(
+        '-t', '--theme',
+        help='Generate only the specified theme'
+    )
+    parser.add_argument(
+        '-l', '--list',
+        action='store_true',
+        help='List available palette files'
+    )
+    parser.add_argument(
+        '-v', '--verbose',
+        action='store_true',
+        help='Verbose output'
+    )
+    parser.add_argument(
+        '--validate',
+        action='store_true',
+        help='Only validate palettes without generating themes'
+    )
+    
+    args = parser.parse_args()
+    
+    # Ensure directories exist
+    PALETTES_DIR.mkdir(parents=True, exist_ok=True)
+    THEMES_DIR.mkdir(parents=True, exist_ok=True)
+    
+    # List palettes
+    if args.list:
+        palettes = discover_palettes()
+        print("Available palettes:")
+        print("=" * 40)
+        for palette in palettes:
+            print(f"  • {palette}")
+        print(f"\nTotal: {len(palettes)} palettes")
+        return 0
+    
+    # Discover available themes
+    if args.theme:
+        themes = [args.theme]
+        print(f"🎨 Generating theme: {args.theme}\n")
+    else:
+        themes = discover_palettes()
+        if not themes:
+            print("❌ No palette files found in:", PALETTES_DIR)
+            return 1
+        print(f"🎨 Found {len(themes)} themes to generate\n")
+    
+    # Validate only
+    if args.validate:
+        print("Validating palettes...\n")
+        all_valid = True
+        for theme in themes:
+            colors = load_palette(theme)
+            if colors:
+                print(f"✅ {theme}: Valid")
+            else:
+                all_valid = False
+        
+        return 0 if all_valid else 1
+    
+    # Generate themes
+    success_count = 0
+    fail_count = 0
     
     for theme in themes:
-        print(f"Generating {theme}...")
-        colors = load_palette(theme)
-        mapped = get_mapped_colors(theme, colors)
-        theme_dir = THEMES_DIR / theme
-       
-        with open(theme_dir / "rofi.rasi", 'w') as f:
-            f.write(generate_rofi(theme, colors))
-        
-        with open(theme_dir / "btop.theme", 'w') as f:
-            f.write(generate_btop(theme, colors))
-        
-        with open(theme_dir / "cava", 'w') as f:
-            f.write(generate_cava(theme, colors))
-        
-        with open(theme_dir / "alacritty-theme.toml", 'w') as f:
-            f.write(generate_alacritty(theme, colors))
-        
-        with open(theme_dir / "kitty-theme.conf", 'w') as f:
-            f.write(generate_kitty(theme, colors))
-        
-        with open(theme_dir / "waybar.css", 'w') as f:
-            f.write(generate_waybar(theme, mapped))
-        
-        with open(theme_dir / "swaync.css", 'w') as f:
-            f.write(generate_swaync(theme, mapped))
-        
-        with open(theme_dir / "theme-switcher-menu.rasi", 'w') as f:
-            f.write(generate_theme_menu(theme, colors))
-        
-        print(f"✓ {theme} generated")
+        if generate_theme(theme, verbose=args.verbose):
+            success_count += 1
+        else:
+            fail_count += 1
     
-    print("\n✓ All themes generated!")
+    # Summary
+    print("=" * 50)
+    print(f"✅ Successfully generated: {success_count}/{len(themes)} themes")
+    if fail_count > 0:
+        print(f"❌ Failed: {fail_count} themes")
+        return 1
+    
+    print("\n🎉 All themes generated successfully!")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
