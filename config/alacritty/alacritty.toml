@@ -52,3 +52,10 @@ hide_when_typing = true
 [[mouse.bindings]]
 mouse = "Right"
 action = "PasteSelection"
+
+# ============================================================================
+# COLORS - Managed by theme-switcher
+# ============================================================================
+# Theme colors are dynamically injected by the theme switcher.
+# Do not manually edit colors here - use the theme switcher instead.
+# Run: ~/.config/theme-switcher/scripts/switcher.sh
