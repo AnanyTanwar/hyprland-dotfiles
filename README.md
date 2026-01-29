@@ -281,6 +281,10 @@ cat ~/.config/theme-switcher/.theme-switcher.log
 ![Tokyo Night Main](screenshots/tokyo-night/tokyonight_main.png)
 ![Tokyo Night Dev](screenshots/tokyo-night/tokyo_dev.png)
 
+### Catppuccin
+![Catppuccin Main](screenshots/catppuccin/cat_main.png)
+![Catppuccin Dev](screenshots/catppuccin/cat_dev.png)
+
 ### Gruvbox
 ![Gruvbox Main](screenshots/gruvbox/gruvbox_main.png)
 ![Gruvbox Dev](screenshots/gruvbox/gruv_dev.png)
