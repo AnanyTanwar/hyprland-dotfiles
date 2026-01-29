@@ -1,64 +1,281 @@
-# 🌸 Hyprland Dotfiles
+# Hyprland Dotfiles
 
 <p align="center">
-  <img src="https://img.shields.io/badge/OS-ARCH_LINUX-1793D1?logo=arch-linux&logoColor=white&style=flat-square&labelColor=1e1e2e&color=1793D1&logoWidth=20&fontSize=12&borderRadius=0"/>
-  <img src="https://img.shields.io/badge/WM-HYPRLAND-5e81ac?logo=wayland&logoColor=white&style=flat-square&labelColor=1e1e2e&color=5e81ac&logoWidth=20&fontSize=12&borderRadius=0"/>
-  <img src="https://img.shields.io/badge/LICENSE-MIT-28a745?style=flat-square&labelColor=1e1e2e&color=28a745&logoWidth=20&fontSize=12&borderRadius=0"/>
+  <img src="https://img.shields.io/badge/OS-Arch_Linux-1793D1?logo=arch-linux&logoColor=white&style=flat-square&labelColor=1e1e2e"/>
+  <img src="https://img.shields.io/badge/WM-Hyprland-5e81ac?logo=wayland&logoColor=white&style=flat-square&labelColor=1e1e2e"/>
+  <img src="https://img.shields.io/badge/Shell-Zsh-89b4fa?logo=gnubash&logoColor=white&style=flat-square&labelColor=1e1e2e"/>
+  <img src="https://img.shields.io/badge/License-MIT-a6e3a1?style=flat-square&labelColor=1e1e2e"/>
 </p>
 
-A beautiful and feature-rich Hyprland rice for Arch Linux with custom theme switching capabilities.
+A beautiful and feature-rich Hyprland configuration for Arch Linux with intelligent theme management that automatically syncs colors across your entire system.
 
 ![Main Screenshot](screenshots/tokyo-night/tokyonight_main.png)
 
-## ✨ Features
+---
 
-- 🎨 **Custom Theme Switcher** - Switch between 7 beautiful themes instantly
-  - Dracula
-  - Tokyo Night
-  - Catppuccin Mocha
-  - Catppuccin Latte
-  - Rose Pine
-  - Gruvbox
-  - Nord
-- 🚀 **Modular Hyprland Configuration** - Clean, organized config structure
-- 📊 **Themed Applications** - Consistent theming across all apps
-- 🎯 **Productive Workflow** - Optimized keybinds and workspace management
-- 💻 **Developer-Friendly** - Neovim with LSP, Treesitter, and more
+## Features
 
-## 📦 What's Included
+**Intelligent Theme System**
+- Dynamic theme switching with a single command
+- Automatic color synchronization across all applications
+- 7 carefully curated color schemes included
+- Auto-discovery of custom themes
+- Validation and error checking for theme files
 
-### Window Manager & Desktop
-- **Hyprland** - Dynamic tiling Wayland compositor
-- **Waybar** - Customizable status bar with custom scripts
-- **Rofi** - Application launcher (Type-2 Style-2)
-- **Swaync** - Notification daemon
+**Supported Applications**
+- Hyprland (window borders and shadows)
+- Waybar (status bar)
+- Rofi (application launcher)
+- Starship (shell prompt)
+- Kitty & Alacritty (terminals)
+- SwayNC (notifications)
+- Btop (system monitor)
+- Cava (audio visualizer)
 
-### Terminals & Shells
-- **Kitty** - GPU-accelerated terminal
-- **Alacritty** - Lightweight terminal
-- **Zsh** - Shell with Powerlevel10k
+**Development Environment**
+- Neovim with LSP, Treesitter, and modern plugins
+- Optimized keybindings for productivity
+- GPU-accelerated terminals
 
-### Development
-- **Neovim** - Configured with:
-  - LSP support
-  - Treesitter syntax highlighting
-  - Telescope fuzzy finder
-  - Neo-tree file explorer
-  - Auto-completion
-  - And more plugins!
+**System Management**
+- Automatic configuration backups (keeps last 5)
+- Detailed logging for troubleshooting
+- Modular configuration structure
+- Easy rollback capabilities
 
-### System Monitoring & Utilities
-- **Btop** - Resource monitor
-- **Cava** - Audio visualizer
-- **Starship** - Cross-shell prompt (alternative to p10k)
+---
 
-### Theme Management
-- **Custom Theme Switcher** - Python-based theme generator
-  - Automatically generates themes for all apps from JSON palettes
-  - Instant theme switching via Rofi menu
-  - Support for 7 color schemes
+## Available Themes
 
-## 🖼️ Screenshots
+- **Catppuccin Mocha** - Warm, pastel color palette
+- **Catppuccin Latte** - Light variant with soft tones
+- **Tokyo Night** - Clean, modern dark theme
+- **Dracula** - Classic dark theme with vibrant accents
+- **Rose Pine** - Elegant theme with muted colors
+- **Gruvbox** - Retro-inspired warm palette
+- **Nord** - Cool, arctic-inspired colors
+
+---
+
+## Requirements
+
+- Arch Linux (or Arch-based distribution)
+- Git
+- AUR helper (yay or paru - installed automatically if missing)
+
+---
+
+## Installation
+
+### Quick Install
+
+```bash
+git clone https://github.com/AnanyTanwar/hyprland-dotfiles.git
+cd hyprland-dotfiles
+chmod +x install.sh
+./install.sh
+```
+
+The installation script will:
+- Install all required packages and dependencies
+- Install Nerd Fonts (JetBrains Mono, FiraCode, Meslo)
+- Backup existing configurations with timestamp
+- Create symlinks to the dotfiles
+- Set up the theme switcher
+
+After installation, log out and log back in to apply all changes.
+
+### Manual Installation
+
+For manual installation instructions, see the [Manual Installation Guide](docs/MANUAL_INSTALL.md).
+
+---
+
+## Theme Management
+
+### Switching Themes
+
+Run the theme switcher:
+```bash
+~/.config/theme-switcher/scripts/switcher.sh
+```
+
+Or use the keybinding: `SUPER + T`
+
+### Command Line Options
+
+```bash
+# Show interactive menu (default)
+switcher.sh
+
+# Apply specific theme
+switcher.sh apply tokyo-night
+
+# List available themes
+switcher.sh list
+
+# Show current theme
+switcher.sh current
+
+# Show help
+switcher.sh help
+```
+
+### Theme Generator
+
+```bash
+# List available palettes
+generate-themes.py -l
+
+# Validate all palettes
+generate-themes.py --validate
+
+# Generate specific theme
+generate-themes.py -t dracula
+
+# Verbose output
+generate-themes.py -v
+```
+
+### Creating Custom Themes
+
+1. Create a JSON palette in `config/theme-switcher/palettes/`:
+
+```json
+{
+  "name": "my-theme",
+  "base": "#1e1e2e",
+  "text": "#cdd6f4",
+  "red": "#f38ba8",
+  "green": "#a6e3a1",
+  "yellow": "#f9e2af",
+  "blue": "#89b4fa",
+  "pink": "#f5c2e7"
+}
+```
+
+2. Generate the theme:
+```bash
+~/.config/theme-switcher/scripts/generate-themes.py
+```
+
+Your theme will automatically appear in the theme switcher.
+
+---
+
+## Keybindings
+
+### Essential Shortcuts
+
+| Keybind | Action |
+|---------|--------|
+| `SUPER + Q` | Close window |
+| `SUPER + Return` | Open terminal |
+| `SUPER + D` | Application launcher |
+| `SUPER + T` | Theme switcher |
+| `SUPER + E` | File manager |
+| `SUPER + V` | Toggle floating |
+| `SUPER + F` | Toggle fullscreen |
+| `SUPER + [1-9]` | Switch workspace |
+| `SUPER + SHIFT + [1-9]` | Move window to workspace |
+
+Complete keybinding reference: `config/hypr/config/keybinds.conf`
+
+---
+
+## Configuration Structure
+
+```
+hyprland-dotfiles/
+├── config/
+│   ├── hypr/
+│   │   ├── hyprland.conf
+│   │   ├── hyprlock.conf
+│   │   ├── config/           # Modular configuration
+│   │   │   ├── animations.conf
+│   │   │   ├── appearance.conf
+│   │   │   ├── keybinds.conf
+│   │   │   ├── monitors.conf
+│   │   │   ├── programs.conf
+│   │   │   ├── windowrules.conf
+│   │   │   └── workspaces.conf
+│   │   └── scripts/          # Utility scripts
+│   ├── theme-switcher/
+│   │   ├── palettes/         # JSON color definitions
+│   │   ├── themes/           # Generated theme files
+│   │   └── scripts/
+│   │       ├── generate-themes.py
+│   │       └── switcher.sh
+│   ├── waybar/
+│   ├── rofi/
+│   ├── kitty/
+│   ├── alacritty/
+│   ├── swaync/
+│   ├── nvim/
+│   ├── btop/
+│   ├── cava/
+│   └── starship/
+├── .zshrc
+├── install.sh
+└── README.md
+```
+
+---
+
+## Customization
+
+### Hyprland Configuration
+
+All Hyprland settings are modular and easy to customize:
+
+- `config/animations.conf` - Animation timing and curves
+- `config/appearance.conf` - Visual settings (borders, gaps, rounding)
+- `config/keybinds.conf` - Keyboard shortcuts
+- `config/monitors.conf` - Display configuration
+- `config/programs.conf` - Default applications
+- `config/windowrules.conf` - Application-specific rules
+- `config/workspaces.conf` - Workspace behavior
+
+### Starship Prompt
+
+Edit `~/.config/starship/starship.toml` to customize your prompt.
+Colors are automatically synchronized with the active theme.
+
+---
+
+## Troubleshooting
+
+**Scripts not executing**
+```bash
+chmod +x ~/.config/theme-switcher/scripts/*.sh
+chmod +x ~/.config/hypr/scripts/*.sh
+```
+
+**Waybar not visible**
+```bash
+pkill waybar && waybar &
+```
+
+**Missing icons**
+```bash
+yay -S ttf-jetbrains-mono-nerd ttf-firacode-nerd
+```
+
+**Theme not applying**
+```bash
+# Check logs
+cat ~/.config/theme-switcher/.theme-switcher.log
+
+# Regenerate themes
+~/.config/theme-switcher/scripts/generate-themes.py -v
+
+# Reapply current theme
+~/.config/theme-switcher/scripts/switcher.sh apply $(cat ~/.config/theme-switcher/.current-theme)
+```
+
+---
+
+## Screenshots
 
 ### Tokyo Night
 ![Tokyo Night Main](screenshots/tokyo-night/tokyonight_main.png)
@@ -72,232 +289,44 @@ A beautiful and feature-rich Hyprland rice for Arch Linux with custom theme swit
 ![Dracula Main](screenshots/dracula/dracula_main.png)
 ![Dracula Dev](screenshots/dracula/dracula_dev.png)
 
+---
 
-## 📋 Requirements
+## Roadmap
 
-- Arch Linux (or Arch-based distro)
-- Git
-- An AUR helper will be installed automatically (yay/paru)
-
-## 🚀 Installation
-
-### Automatic Installation (Recommended)
-
-1. **Clone the repository**
-```bash
-   git clone https://github.com/AnanyTanwar/hyprland-dotfiles.git
-   cd hyprland-dotfiles
-```
-
-2. **Run the install script**
-```bash
-   chmod +x install.sh
-   ./install.sh
-```
-
-   The script will:
-   - Update your system (with confirmation)
-   - Install yay and paru if not present
-   - Install all required packages
-   - Install Nerd Fonts (JetBrains Mono, FiraCode, Meslo)
-   - Backup your existing configs to `~/.config-backup-<timestamp>`
-   - Create symlinks to the dotfiles
-
-3. **Log out and log back in** to apply changes
-
-### Manual Installation
-
-If you prefer to install manually:
-
-1. **Install dependencies**
-```bash
-   # Core packages
-   sudo pacman -S hyprland waybar rofi kitty alacritty swaync btop cava neovim starship python python-pip grim slurp wl-clipboard polkit-kde-agent qt5-wayland qt6-wayland
-
-   # AUR packages (using yay)
-   yay -S hyprpicker wlogout ttf-jetbrains-mono-nerd ttf-firacode-nerd
-```
-
-2. **Backup your configs**
-```bash
-   mkdir -p ~/.config-backup
-   cp -r ~/.config/hypr ~/.config-backup/
-   cp -r ~/.config/waybar ~/.config-backup/
-   # ... backup other configs
-```
-
-3. **Clone and symlink**
-```bash
-   git clone https://github.com/AnanyTanwar/hyprland-dotfiles.git ~/hyprland-dotfiles
-   
-   # Create symlinks
-   ln -sf ~/hyprland-dotfiles/config/hypr ~/.config/hypr
-   ln -sf ~/hyprland-dotfiles/config/waybar ~/.config/waybar
-   ln -sf ~/hyprland-dotfiles/config/rofi ~/.config/rofi
-   ln -sf ~/hyprland-dotfiles/config/kitty ~/.config/kitty
-   ln -sf ~/hyprland-dotfiles/config/alacritty ~/.config/alacritty
-   ln -sf ~/hyprland-dotfiles/config/swaync ~/.config/swaync
-   ln -sf ~/hyprland-dotfiles/config/btop ~/.config/btop
-   ln -sf ~/hyprland-dotfiles/config/cava ~/.config/cava
-   ln -sf ~/hyprland-dotfiles/config/nvim ~/.config/nvim
-   ln -sf ~/hyprland-dotfiles/config/starship ~/.config/starship
-   ln -sf ~/hyprland-dotfiles/config/theme-switcher ~/.config/theme-switcher
-   ln -sf ~/hyprland-dotfiles/.zshrc ~/.zshrc
-```
-
-## 🎨 Theme Switching
-
-To switch themes, run:
-```bash
-~/.config/theme-switcher/scripts/switcher.sh
-```
-
-Or bind it to a keybind in your Hyprland config (already configured as `SUPER + T`).
-
-The theme switcher will automatically update:
-- Waybar
-- Rofi
-- Kitty
-- Alacritty
-- Swaync
-- Btop
-- Cava
-
-> **Note:** Starship theme switching will be added in a future update. Currently using Catppuccin Mocha by default.
-
-## ⌨️ Keybinds
-
-### Essential Keybinds
-
-| Keybind | Action |
-|---------|--------|
-| `SUPER + Q` | Close window |
-| `SUPER + Return` | Open terminal |
-| `SUPER + D` | Open Rofi launcher |
-| `SUPER + T` | Theme switcher |
-| `SUPER + E` | File manager |
-| `SUPER + V` | Toggle floating |
-| `SUPER + F` | Toggle fullscreen |
-| `SUPER + [1-9]` | Switch to workspace |
-| `SUPER + SHIFT + [1-9]` | Move window to workspace |
-| `SUPER + Mouse` | Move/resize windows |
-
-> See `config/hypr/config/keybinds.conf` for complete keybind list
-
-## 📁 Directory Structure
-```
-hyprland-dotfiles/
-├── config/
-│   ├── hypr/              # Hyprland configuration
-│   │   ├── hyprland.conf
-│   │   ├── hyprlock.conf
-│   │   ├── config/        # Modular configs
-│   │   └── scripts/       # Utility scripts
-│   ├── waybar/            # Status bar
-│   ├── rofi/              # App launcher
-│   ├── kitty/             # Terminal
-│   ├── alacritty/         # Alternative terminal
-│   ├── swaync/            # Notifications
-│   ├── nvim/              # Neovim config
-│   ├── btop/              # System monitor
-│   ├── cava/              # Audio visualizer
-│   ├── starship/          # Shell prompt
-│   └── theme-switcher/    # Custom theme switcher
-│       ├── palettes/      # Color palettes (JSON)
-│       ├── themes/        # Generated theme files
-│       └── scripts/       # Switcher scripts
-├── .zshrc                 # Zsh configuration (with p10k)
-├── install.sh             # Installation script
-└── README.md
-```
-
-## 🔧 Customization
-
-### Adding Your Own Theme
-
-1. Create a new color palette JSON in `config/theme-switcher/palettes/`:
-```json
-   {
-     "name": "my-theme",
-     "base": "#1e1e2e",
-     "text": "#cdd6f4",
-     "red": "#f38ba8",
-     ...
-   }
-```
-
-2. Run the theme generator:
-```bash
-   cd ~/.config/theme-switcher/scripts
-   python generate-themes.py
-```
-
-3. Your new theme will appear in the theme switcher!
-
-### Modifying Hyprland Config
-
-The Hyprland config is modular for easy customization:
-- `config/animations.conf` - Animation settings
-- `config/appearance.conf` - Borders, gaps, colors
-- `config/keybinds.conf` - Keyboard shortcuts
-- `config/monitors.conf` - Monitor configuration
-- `config/programs.conf` - Default applications
-- `config/windowrules.conf` - Window rules
-- `config/workspaces.conf` - Workspace settings
-
-## 🐛 Troubleshooting
-
-### Theme switcher not working
-```bash
-# Make sure scripts are executable
-chmod +x ~/.config/theme-switcher/scripts/*.sh
-chmod +x ~/.config/hypr/scripts/*.sh
-```
-
-### Waybar not showing
-```bash
-# Restart waybar
-pkill waybar
-waybar &
-```
-
-### Missing icons in terminal
-Make sure you have Nerd Fonts installed:
-```bash
-yay -S ttf-jetbrains-mono-nerd
-```
-git push origin main
-
-## 🎯 Planned Features
-
-- [ ] GTK theme integration
-- [ ] Starship theme switching
-- [ ] Wallpaper manager integration
-- [ ] More color schemes
-- [ ] Auto-wallpaper based on theme
-- [ ] Firefox theme integration
-
-## 🙏 Acknowledgments
-
-- [Hyprland](https://hyprland.org/) - Amazing Wayland compositor
-- [Catppuccin](https://github.com/catppuccin/catppuccin) - Beautiful pastel theme
-- [Tokyo Night](https://github.com/tokyo-night/tokyo-night-vscode-theme) - Clean dark theme
-- [Dracula](https://draculatheme.com/) - Dark theme
-- [Rose Pine](https://rosepinetheme.com/) - Soho vibes theme
-- [Gruvbox](https://github.com/morhetz/gruvbox) - Retro groove theme
-- [Nord](https://www.nordtheme.com/) - Arctic-inspired theme
-- The Hyprland and r/unixporn communities for inspiration
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 💬 Contributing
-
-Feel free to open issues or submit pull requests if you have suggestions or improvements!
+- GTK theme integration
+- Wallpaper manager with theme-matched wallpapers
+- Firefox theme synchronization
+- Additional color schemes
+- Theme import/export functionality
 
 ---
 
-**Made with ❤️ by [Anany Tanwar](https://github.com/AnanyTanwar)**
+## Credits
 
-*If you like this rice, give it a ⭐!*
+**Themes**
+- [Catppuccin](https://github.com/catppuccin/catppuccin)
+- [Tokyo Night](https://github.com/tokyo-night/tokyo-night-vscode-theme)
+- [Dracula](https://draculatheme.com/)
+- [Rose Pine](https://rosepinetheme.com/)
+- [Gruvbox](https://github.com/morhetz/gruvbox)
+- [Nord](https://www.nordtheme.com/)
+
+**Software**
+- [Hyprland](https://hyprland.org/) - Wayland compositor
+- The Hyprland community for inspiration
+
+---
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Issues and pull requests are welcome. For major changes, please open an issue first to discuss proposed changes.
+
+---
+
+**Made by [Anany Tanwar](https://github.com/AnanyTanwar)**
+
+If you find this useful, consider giving it a star ⭐
