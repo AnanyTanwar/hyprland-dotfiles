@@ -1,12 +1,11 @@
 # 🌸 Hyprland Dotfiles
 
 <p align="center">
-  <img src="https://img.shields.io/badge/OS-Arch_Linux-1793D1?logo=arch-linux&logoColor=white"/>
-  <img src="https://img.shields.io/badge/WM-Hyprland-5e81ac?logo=wayland&logoColor=white"/>
-  <img src="https://img.shields.io/github/license/AnanyTanwar/hyprland-dotfiles?color=brightgreen"/>
-  <img src="https://img.shields.io/github/stars/AnanyTanwar/hyprland-dotfiles?style=flat"/>
+  <img src="https://img.shields.io/badge/OS-Arch_Linux-1793D1?logo=arch-linux&logoColor=white&style=flat-square"/>
+  <img src="https://img.shields.io/badge/WM-Hyprland-5e81ac?logo=wayland&logoColor=white&style=flat-square"/>
+  <img src="https://img.shields.io/github/license/AnanyTanwar/hyprland-dotfiles?color=brightgreen&style=flat-square"/>
+  <img src="https://img.shields.io/github/stars/AnanyTanwar/hyprland-dotfiles?style=flat-square"/>
 </p>
-
 
 A beautiful and feature-rich Hyprland rice for Arch Linux with custom theme switching capabilities.
 
