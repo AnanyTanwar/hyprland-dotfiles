@@ -1,8 +1,16 @@
 # 🌸 Hyprland Dotfiles
 
+<p align="center">
+  <img src="https://img.shields.io/badge/OS-Arch_Linux-1793D1?logo=arch-linux&logoColor=white"/>
+  <img src="https://img.shields.io/badge/WM-Hyprland-5e81ac?logo=wayland&logoColor=white"/>
+  <img src="https://img.shields.io/github/license/AnanyTanwar/hyprland-dotfiles?color=brightgreen"/>
+  <img src="https://img.shields.io/github/stars/AnanyTanwar/hyprland-dotfiles?style=flat"/>
+</p>
+
+
 A beautiful and feature-rich Hyprland rice for Arch Linux with custom theme switching capabilities.
 
-![Main Screenshot](screenshots/main.png)
+![Main Screenshot](screenshots/tokyo-night/tokyonight_main.png)
 
 ## ✨ Features
 
@@ -54,17 +62,18 @@ A beautiful and feature-rich Hyprland rice for Arch Linux with custom theme swit
 
 ## 🖼️ Screenshots
 
-### Dracula Theme
-![Dracula](screenshots/dracula.png)
+### Tokyo Night
+![Tokyo Night Main](screenshots/tokyo-night/tokyonight_main.png)
+![Tokyo Night Dev](screenshots/tokyo-night/tokyo_dev.png)
 
-### Tokyo Night Theme
-![Tokyo Night](screenshots/tokyo-night.png)
+### Gruvbox
+![Gruvbox Main](screenshots/gruvbox/gruvbox_main.png)
+![Gruvbox Dev](screenshots/gruvbox/gruv_dev.png)
 
-### Catppuccin Mocha Theme
-![Catppuccin](screenshots/catppuccin-mocha.png)
+### Dracula
+![Dracula Main](screenshots/dracula/dracula_main.png)
+![Dracula Dev](screenshots/dracula/dracula_dev.png)
 
-### Rose Pine Theme
-![Rose Pine](screenshots/rose-pine.png)
 
 ## 📋 Requirements
 
