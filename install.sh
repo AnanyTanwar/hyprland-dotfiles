@@ -382,6 +382,28 @@ else
 fi
 
 # ============================================================================
+# COPY WALLPAPERS
+# ============================================================================
+
+print_header "Installing Wallpapers"
+
+if [ -d "$DOTFILES_DIR/wallpapers" ]; then
+    print_info "Copying wallpapers to ~/Pictures/Wallpapers..."
+    
+    # Count wallpapers
+    wallpaper_count=$(find "$DOTFILES_DIR/wallpapers" -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) | wc -l)
+    
+    if [ "$wallpaper_count" -gt 0 ]; then
+        cp -r "$DOTFILES_DIR/wallpapers/"* "$HOME/Pictures/Wallpapers/" 2>/dev/null || true
+        print_success "Installed $wallpaper_count wallpapers"
+    else
+        print_info "Wallpapers folder exists but is empty"
+    fi
+else
+    print_info "No wallpapers directory found (will be added later)"
+fi
+
+# ============================================================================
 # SET DEFAULT SHELL
 # ============================================================================
 
