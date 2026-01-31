@@ -25,6 +25,7 @@ A beautiful and feature-rich Hyprland configuration for Arch Linux with intellig
 **Supported Applications**
 - Hyprland (window borders and shadows)
 - Waybar (status bar)
+- Rofi (application launcher and powermenu)
 - Rofi (application launcher)
 - Starship (shell prompt)
 - Kitty & Alacritty (terminals)
@@ -82,6 +83,7 @@ The installation script will:
 - Backup existing configurations with timestamp
 - Create symlinks to the dotfiles
 - Set up the theme switcher
+- Install theme-matched wallpapers to ~/Pictures/Wallpapers
 
 After installation, log out and log back in to apply all changes.
 
