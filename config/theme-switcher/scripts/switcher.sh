@@ -20,12 +20,12 @@ LOG_FILE="$THEME_SWITCHER_DIR/.theme-switcher.log"
 
 # Theme display name mappings
 declare -A THEME_DISPLAY_NAMES=(
-    ["catppuccin-mocha"]="󰄛 Catppuccin Mocha"
-    ["catppuccin-latte"]="󰄛 Catppuccin Latte"
+    ["catppuccin-mocha"]=" Catppuccin Mocha"
+    ["catppuccin-latte"]=" Catppuccin Latte"
     ["rose-pine"]=" Rosé Pine"
-    ["nord"]="󰔒 Nord"
+    ["nord"]=" Nord"
     ["gruvbox"]=" Gruvbox"
-    ["tokyo-night"]="󰓎 Tokyo Night"
+    ["tokyo-night"]=" Tokyo Night"
     ["dracula"]=" Dracula"
 )
 
@@ -186,6 +186,12 @@ apply_rofi() {
     # Also update theme switcher menu
     [[ -f "$theme_path/theme-switcher-menu.rasi" ]] && \
         cp "$theme_path/theme-switcher-menu.rasi" "$THEME_SWITCHER_DIR/theme-switcher-menu.rasi"
+    
+    # Update rofi launcher colors (adi1090x style)
+    if [[ -f "$theme_path/rofi-launcher-colors.rasi" ]]; then
+        mkdir -p "$CONFIG_DIR/rofi/launchers/type-2/shared"
+        cp "$theme_path/rofi-launcher-colors.rasi" "$CONFIG_DIR/rofi/launchers/type-2/shared/colors.rasi"
+    fi
 }
 
 apply_alacritty() {

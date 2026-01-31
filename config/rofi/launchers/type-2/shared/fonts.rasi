@@ -1,5 +1,8 @@
-
+/**
+ * Rofi Fonts
+ * Static font configuration
+ */
 
 * {
-    font: "Ubuntu Nerd Font Medium 12";
+    font: "Ubuntu Nerd Font 12";
 }
