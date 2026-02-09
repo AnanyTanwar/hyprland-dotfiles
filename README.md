@@ -18,7 +18,8 @@ A beautiful and feature-rich Hyprland configuration for Arch Linux with intellig
 **Intelligent Theme System**
 - Dynamic theme switching with a single command
 - Automatic color synchronization across all applications
-- 7 carefully curated color schemes included
+- Neovim automatically syncs colors with the active system theme
+- 8 carefully curated color schemes included
 - Auto-discovery of custom themes
 - Validation and error checking for theme files
 
@@ -35,6 +36,7 @@ A beautiful and feature-rich Hyprland configuration for Arch Linux with intellig
 
 **Development Environment**
 - Neovim with LSP, Treesitter, and modern plugins
+- Automatic Neovim colorscheme syncing with the theme switcher
 - Optimized keybindings for productivity
 - GPU-accelerated terminals
 
@@ -48,13 +50,14 @@ A beautiful and feature-rich Hyprland configuration for Arch Linux with intellig
 
 ## Available Themes
 
-- **Catppuccin Mocha** - Warm, pastel color palette
-- **Catppuccin Latte** - Light variant with soft tones
-- **Tokyo Night** - Clean, modern dark theme
-- **Dracula** - Classic dark theme with vibrant accents
-- **Rose Pine** - Elegant theme with muted colors
-- **Gruvbox** - Retro-inspired warm palette
-- **Nord** - Cool, arctic-inspired colors
+- **Catppuccin Mocha** 
+- **Catppuccin Latte** 
+- **Tokyo Night**
+- **Dracula** 
+- **Rose Pine**
+- **Gruvbox** 
+- **Nord** 
+- **One Dark** 
 
 ---
 
