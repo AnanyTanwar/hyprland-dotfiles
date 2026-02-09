@@ -16,7 +16,6 @@ return {
                     telescope = true,
                 }
             })
-            vim.cmd.colorscheme("catppuccin")
         end
     },
 
