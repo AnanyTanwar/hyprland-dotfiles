@@ -106,6 +106,27 @@ tooltip label {
   color: @mauve;
 }
 
+#custom-spotify {
+  background: @green;
+  color: @crust;
+  padding: 3px 11px;
+  margin: 4px 3px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  min-width: 200px;
+}
+
+#custom-spotify.paused {
+  background: @surface1;
+  color: @overlay1;
+}
+
+#custom-spotify.playing {
+  background: @green;
+  color: @crust;
+}
+
 #cpu {
   background: @green;
   color: @crust;

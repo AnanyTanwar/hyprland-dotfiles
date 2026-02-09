@@ -1,0 +1,127 @@
+configuration {
+    show-icons: false;
+}
+
+* {
+    bg:     #282c34;
+    bg-alt: #21252b;
+    fg:     #abb2bf;
+    accent: #c678dd;
+    green:  #98c379;
+    red:    #e06c75;
+    selected: #c678dd;
+    background: #282c34;
+    background-alt: #2c313c;
+    foreground: #abb2bf;
+    urgent: #e06c75;
+    active: #98c379;
+
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    transparency: "real";
+    location: center;
+    anchor: center;
+    fullscreen: false;
+    width: 640px;
+    padding: 0px;
+    border: 0px solid;
+    border-radius: 18px;
+    border-color: @selected;
+    background-color: @background;
+}
+
+mainbox {
+    enabled: true;
+    spacing: 12px;
+    margin: 0px;
+    padding: 20px;
+    border: 0px solid;
+    border-radius: 0px;
+    background-color: transparent;
+    children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+    enabled: true;
+    spacing: 15px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    border-radius: 0px;
+    background-color: transparent;
+    text-color: @foreground;
+    children: [ "textbox-prompt-colon", "prompt" ];
+}
+
+textbox-prompt-colon {
+    enabled: true;
+    expand: false;
+    str: "";
+    padding: 12px 15px;
+    border-radius: 100%;
+    background-color: @urgent;
+    text-color: @background;
+    font: "feather bold 20";
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
+
+prompt {
+    enabled: true;
+    padding: 12px 20px;
+    border-radius: 100%;
+    background-color: @active;
+    text-color: @background;
+    font: "JetBrainsMono Nerd Font 12";
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
+
+listview {
+    enabled: true;
+    columns: 5;
+    lines: 1;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+    layout: vertical;
+    reverse: false;
+    fixed-height: true;
+    fixed-columns: true;
+    spacing: 12px;
+    margin: 0px 0px 0px -10px;
+    padding: 0px;
+    border: 0px solid;
+    border-radius: 0px;
+    background-color: transparent;
+    text-color: @foreground;
+    cursor: "default";
+}
+
+element {
+    enabled: true;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 100%;
+    background-color: @background-alt;
+    text-color: @foreground;
+    cursor: pointer;
+    orientation: vertical;
+}
+
+element-text {
+    font: "feather bold 28";
+    background-color: transparent;
+    text-color: inherit;
+    cursor: inherit;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    padding: 45px;
+}
+
+element selected.normal {
+    background-color: @accent;
+    text-color: @background;
+}

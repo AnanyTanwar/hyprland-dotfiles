@@ -6,16 +6,16 @@ configuration {
 }
 
 * {
-    bg:     #282a36;
-    bg-alt: #282a36;
-    fg:     #f8f8f2;
-    accent: #bd93f9;
-    surface: #44475a;
+    bg:     #282c34;
+    bg-alt: #21252b;
+    fg:     #abb2bf;
+    accent: #c678dd;
+    surface: #2c313c;
     
-    background: #282a36;
-    background-alt: #44475a;
-    foreground: #f8f8f2;
-    selected: #bd93f9;
+    background: #282c34;
+    background-alt: #2c313c;
+    foreground: #abb2bf;
+    selected: #c678dd;
     
     font: "Ubuntu Nerd Font 13";
 }
